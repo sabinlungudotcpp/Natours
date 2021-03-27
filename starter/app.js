@@ -30,14 +30,22 @@ app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
         if(error) {
             return response.status(notFound).json({
                 message: error.toString()
-            })
+            });
+
         }
     }
 });
 
 app.post('/api/v1/tours', (request, response) => {
-    console.log(request.body);
-    return response.send('Done');
+    try {
+        const newId = tours[tours.length - 1].id + 1;
+        const newTour = Object.assign({id: newId}, request.body);
+        tours.push(newTour);
+    } 
+    
+    catch(error) {
+
+    }
 })
 
 app.listen(port, (error) => {
