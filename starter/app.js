@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes');
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 

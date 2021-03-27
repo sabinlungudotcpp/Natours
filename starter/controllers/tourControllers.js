@@ -9,7 +9,7 @@ exports.checkID = (request, response, next, value) => {
         return response.status(notFound).json({
             status: 'Fail',
             message: `The ID ${value} is invalid`
-        })
+        });
     }
 
     return next();
