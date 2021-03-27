@@ -3,7 +3,7 @@ const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-si
 const okCode = 200;
 const notFound = 404;
 
-exports.checkID = (request, response, next, value) => {
+exports.checkID = (request, response, next, value) => { // Param middleware to check the ID of a tour
     if(request.params.id * 1 > tours.length) {
 
         return response.status(notFound).json({
@@ -15,13 +15,13 @@ exports.checkID = (request, response, next, value) => {
     return next();
 }
 
-exports.checkBody = (request, response, next) => {
+exports.checkBody = (request, response, next) => { // Param middleware to check the body of the request
 
     if(!request.body.name || !request.body.price) {
         return response.status(400).json({message: 'Tour title and price must be present in the body'});
     }
 
-     next();
+     return next();
 };
 
 exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
