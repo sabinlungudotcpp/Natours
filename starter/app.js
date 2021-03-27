@@ -12,9 +12,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use((request, response, next) => {
     console.log('Hello from the middleware');
-    
     return next();
 });
+
+app.use((request, response, next) => {
+    request.requestTime = new Date().toISOString();
+})
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
