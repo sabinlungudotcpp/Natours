@@ -2,17 +2,25 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3500;
 const okCode = 200;
+const notFound = 404;
 
-app.get('/', (request, response, next) => {
-    return response.status(okCode).json({
-        message: 'Hello from the server side',
-        sentAt: new Date().toISOString()
-    })
+app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
+    try {
+        const method = request.method;
+
+        if(method === 'GET') {
+
+        }
+    } 
+    
+    catch(error) {
+        if(error) {
+            return response.status(notFound).json({
+                message: error.toString()
+            })
+        }
+    }
 });
-
-app.post('/', (request, response, next) => {
-    return response.send('You can post to this endpoint');
-}); 
 
 app.listen(port, (error) => {
     if(!error) {
