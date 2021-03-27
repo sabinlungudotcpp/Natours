@@ -1,7 +1,19 @@
 const fs = require('fs');
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 const okCode = 200;
-const notFound = 400;
+const notFound = 404;
+
+exports.checkID = (request, response, next, value) => {
+    if(request.params.id * 1 > tours.length) {
+
+        return response.status(notFound).json({
+            status: 'Fail',
+            message: `The ID ${value} is invalid`
+        })
+    }
+
+    return next();
+}
 
 exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
 
@@ -30,10 +42,6 @@ exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
 exports.getTourByID = (request, response) => { // 2. GET A TOUR BY ID
     const id = request.params.id * 1;
     const tour = tours.find(el => el.id === id);
-
-    if(id > tours.length || !tour) {
-        return response.status(notFound).json({message: 'Tour Not Found'});
-    }
 
     return response.status(okCode).json({
         id,
@@ -71,12 +79,6 @@ exports.createTour = (request, response) => { // Creates a new tour
 };
 
 exports.updateTourByID = (request, response) => {
-    const id = request.params.id * 1;
-    const tour = tours.find(el => el.id === id);
-
-    if(id > tours.length || !tour) {
-        return response.status(notFound).json({message: 'Tour Not Found'});
-    }
 
     return response.status(okCode).json({
         message: '<Updated Tour Success>',
