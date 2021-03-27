@@ -37,7 +37,8 @@ app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
 });
 
 app.get('/api/v1/tours/:id', (request, response) => { // 2. GET A TOUR BY ID
-    
+    console.log(request.params);
+    return response.status(okCode).json({})
 });
 
 app.post('/api/v1/tours', (request, response) => {
