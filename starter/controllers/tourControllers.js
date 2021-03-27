@@ -15,6 +15,10 @@ exports.checkID = (request, response, next, value) => {
     return next();
 }
 
+exports.checkBody = (request, response, next, value) => {
+    const body = request.body;
+};
+
 exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
 
     try {
