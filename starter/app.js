@@ -101,8 +101,33 @@ const deleteTourByID = (request, response) => {
     })
 };
 
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
-app.route('/api/v1/tours/:id').get(getTourByID).patch(updateTourByID).delete(deleteTourByID);
+const getAllUsers = (request, response) => {
+    return response.status(500).json({message: 'Route not yet implemented'});
+}
+
+const createUser = (request, response) => {
+
+};
+
+const getUserByID = (request, response) => {
+
+};
+
+const updateUserByID = (request, response) => {
+
+};
+
+const deleteUserByID = (request, response) => {
+
+}
+
+const tourRouter = express.Router();
+
+tourRouter.route('/api/v1/tours').get(getAllTours).post(createTour);
+tourRouter.route('/api/v1/tours/:id').get(getTourByID).patch(updateTourByID).delete(deleteTourByID);
+
+tourRouter.route('/api/v1/users').get(getAllUsers).post(createUser);
+tourRouter.route('/api/v1/users/:id').get(getUserByID).patch(updateUserByID).delete(deleteUserByID);
 
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
