@@ -10,6 +10,12 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use((request, response, next) => {
+    console.log('Hello from the middleware');
+    
+    return next();
+});
+
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
 const getAllTours = (request, response) => { // 1. GET ALL THE TOURS
