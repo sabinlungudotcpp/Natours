@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
-app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
+const getAllTours = (request, response) => { // 1. GET ALL THE TOURS
 
     try {
         const method = request.method;
@@ -35,9 +35,9 @@ app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
 
         }
     }
-});  
+}
 
-app.get('/api/v1/tours/:id', (request, response) => { // 2. GET A TOUR BY ID
+const getTourByID = (request, response) => { // 2. GET A TOUR BY ID
     const id = request.params.id * 1;
     const tour = tours.find(el => el.id === id);
 
@@ -51,9 +51,9 @@ app.get('/api/v1/tours/:id', (request, response) => { // 2. GET A TOUR BY ID
             tour
         }
     })
-});
+}
 
-app.post('/api/v1/tours', (request, response) => { // Creates a new tour 
+const createTour = (request, response) => { // Creates a new tour 
 
     try {
         const newId = tours[tours.length - 1].id + 1; // Get the last tour
@@ -78,9 +78,9 @@ app.post('/api/v1/tours', (request, response) => { // Creates a new tour
             });
         }
     }
-});
+};
 
-app.patch('/api/v1/tours/:id', (request, response) => {
+const updateTourByID = (request, response) => {
     const id = request.params.id * 1;
     const tour = tours.find(el => el.id === id);
 
@@ -91,15 +91,19 @@ app.patch('/api/v1/tours/:id', (request, response) => {
     return response.status(okCode).json({
         message: '<Updated Tour Success>',
         sentAt: new Date().toISOString()
-    })
-});
+    });
+};
 
-app.delete('/api/v1/tours/:id', (request, response) => {
+const deleteTourByID = (request, response) => {
     return response.status(204).json({
         data: undefined
     })
-});
+};
 
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
+app.route('/api/v1/tours/:id').get(getTourByID).patch(updateTourByID).delete(deleteTourByID);
+
+// Listen for incoming requests on the specified port
 app.listen(port, (error) => {
 
     if(!error) {
