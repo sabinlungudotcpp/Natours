@@ -37,13 +37,19 @@ app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
 });
 
 app.post('/api/v1/tours', (request, response) => {
+    
     try {
-        const newId = tours[tours.length - 1].id + 1;
+        const newId = tours[tours.length - 1].id + 1; // Get the last tour
         const newTour = Object.assign({id: newId}, request.body);
         tours.push(newTour);
 
         fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), (error) => {
-            
+            return response.status(201).json({
+                status: 'Success',
+                data: {
+                    tour: newTour
+                }
+            })
         });
     } 
     
