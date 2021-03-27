@@ -36,8 +36,12 @@ app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
     }
 });
 
-app.post('/api/v1/tours', (request, response) => {
+app.get('/api/v1/tours/:id', (request, response) => { // 2. GET A TOUR BY ID
     
+});
+
+app.post('/api/v1/tours', (request, response) => {
+
     try {
         const newId = tours[tours.length - 1].id + 1; // Get the last tour
         const newTour = Object.assign({id: newId}, request.body);
