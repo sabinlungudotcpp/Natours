@@ -37,6 +37,7 @@ app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
 
 app.post('/api/v1/tours', (request, response) => {
     console.log(request.body);
+    return response.send('Done');
 })
 
 app.listen(port, (error) => {
