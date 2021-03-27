@@ -1,23 +1,16 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
+const morgan = require('morgan');
 const app = express();
 const port = process.env.PORT || 3500;
 const okCode = 200;
 const notFound = 404;
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
-app.use((request, response, next) => {
-    console.log('Hello from the middleware');
-    return next();
-});
-
-app.use((request, response, next) => {
-    request.requestTime = new Date().toISOString();
-})
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
@@ -29,8 +22,7 @@ const getAllTours = (request, response) => { // 1. GET ALL THE TOURS
         if(method === 'GET') {
             return response.status(okCode).json({
                 numberOfTours: tours.length,
-                data: tours,
-                
+                data: tours
             }); 
         }
     } 
