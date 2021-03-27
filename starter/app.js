@@ -122,12 +122,16 @@ const deleteUserByID = (request, response) => {
 }
 
 const tourRouter = express.Router();
+const userRouter = express.Router();
 
-tourRouter.route('/api/v1/tours').get(getAllTours).post(createTour);
-tourRouter.route('/api/v1/tours/:id').get(getTourByID).patch(updateTourByID).delete(deleteTourByID);
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
-tourRouter.route('/api/v1/users').get(getAllUsers).post(createUser);
-tourRouter.route('/api/v1/users/:id').get(getUserByID).patch(updateUserByID).delete(deleteUserByID);
+tourRouter.route('/').get(getAllTours).post(createTour);
+tourRouter.route('/:id').get(getTourByID).patch(updateTourByID).delete(deleteTourByID);
+
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUserByID).patch(updateUserByID).delete(deleteUserByID);
 
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
