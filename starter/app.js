@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-const tours = JSON.parse(fs.readFileSync('./dev-data/data/tours-simple.json'));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 
 app.get('/api/v1/tours', (request, response) => { // 1. GET ALL THE TOURS
     try {
@@ -41,10 +41,18 @@ app.post('/api/v1/tours', (request, response) => {
         const newId = tours[tours.length - 1].id + 1;
         const newTour = Object.assign({id: newId}, request.body);
         tours.push(newTour);
+
+        fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), (error) => {
+            
+        });
     } 
     
     catch(error) {
-
+        if(error) {
+            return response.json({
+                message: error.toString()
+            });
+        }
     }
 })
 
