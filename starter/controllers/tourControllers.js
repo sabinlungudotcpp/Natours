@@ -15,8 +15,13 @@ exports.checkID = (request, response, next, value) => {
     return next();
 }
 
-exports.checkBody = (request, response, next, value) => {
-    const body = request.body;
+exports.checkBody = (request, response, next) => {
+
+    if(!request.body.name || !request.body.price) {
+        return response.status(400).json({message: 'Tour title and price must be present in the body'});
+    }
+
+     next();
 };
 
 exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
