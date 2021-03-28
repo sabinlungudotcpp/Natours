@@ -1,4 +1,10 @@
 const app = require('./app');
+const dotenv = require('dotenv');
+
+dotenv.config({
+    path: './config.env'
+});
+
 const port = process.env.PORT || 3500;
 
 // Listen for incoming requests on the specified port
