@@ -17,9 +17,8 @@ mongoose.connect(DB_CONNECTION, {
     useFindAndModify: true,
     useUnifiedTopology: true
 }).then((conn) => {
-    console.log(conn.connections);
-    console.log('')
-})
+    console.log('Connected to Database Successfully')
+});
 
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
