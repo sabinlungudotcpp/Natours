@@ -10,6 +10,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
         const method = request.method;
 
         if(method === 'GET') {
+            console.log(request.query);
 
             const tours = await Tour.find();
 
