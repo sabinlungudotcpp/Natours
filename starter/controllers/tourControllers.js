@@ -18,12 +18,14 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
             let queryString = JSON.stringify(queryObject);
             queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`) // Replace with the specified operations in regex.
 
+            let query = Tour.find(JSON.parse(queryString));
+
             // 2. SORTING FIELDS
             if(request.query.sort) { // If there is a sort
-                
+                query = query.sort()
             }
 
-            const tours = await Tour.find(JSON.parse(queryString)); // Find all the tours with the query object passed in
+            const tours = await query;
 
             return response.status(okCode).json({
                 data: tours,
