@@ -43,7 +43,6 @@ exports.getTourByID = async (request, response) => { // 2. GET A TOUR BY ID
                 data: tours
             })
         }
-       
     } 
     
     catch(error) {
@@ -76,7 +75,8 @@ exports.createTour = async (request, response) => { // Creates a new tour
     catch(error) {
 
         if(error) {
-            return response.json({
+            return response.status(400).json({
+                status: 'Fail',
                 message: error.toString()
             });
         }
