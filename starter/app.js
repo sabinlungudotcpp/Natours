@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 
-console.log(process.env);
 const tourRoutes = require('./routes/tourRoutes');
 const userRoutes = require('./routes/userRoutes');
 
