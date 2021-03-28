@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 dotenv.config({
@@ -6,6 +7,13 @@ dotenv.config({
 const app = require('./app');
 
 const port = process.env.PORT || 3500;
+
+// Connect to MongoDB database
+const DB_CONNECTION = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
+
+mongoose.connect(DB_CONNECTION, (err) => {
+    
+}); 
 
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
