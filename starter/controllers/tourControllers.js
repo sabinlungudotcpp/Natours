@@ -64,9 +64,11 @@ exports.createTour = async (request, response) => { // Creates a new tour
         const body = request.body;
 
         if(method === 'POST') {
-            
+
             const newTour = await Tour.create(body);
             await newTour.save();
+
+            return response.status(201).json({data: newTour})
 
         }
     } 
