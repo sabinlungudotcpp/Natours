@@ -23,10 +23,10 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
     catch(error) {
 
         if(error) {
+
             return response.status(notFound).json({
                 message: error.toString()
             });
-
         }
     }
 }
@@ -57,12 +57,16 @@ exports.getTourByID = async (request, response) => { // 2. GET A TOUR BY ID
     }
 }
 
-exports.createTour = (request, response) => { // Creates a new tour 
+exports.createTour = async (request, response) => { // Creates a new tour 
 
     try {
         const method = request.method;
+        const body = request.body;
 
         if(method === 'POST') {
+            
+            const newTour = await Tour.create(body);
+            await newTour.save();
 
         }
     } 
