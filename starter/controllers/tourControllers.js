@@ -11,16 +11,17 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
         const method = request.method;
         const queryObject = {...request.query}; // Take all of the fields out of the object
         const excludedFields = ['page', 'sort', 'limit', 'fields']; // Fields to exclude
-        excludedFields.forEach(val => delete queryObject[val]);
+        excludedFields.forEach(val => delete queryObject[val]); // For every value in the array, delete them
 
         if(method === 'GET') {
+            console.log(request.query);
             const tours = await Tour.find(queryObject);
 
             return response.status(okCode).json({
                 data: tours,
                 numberOfTours: tours.length,
                 sentAt: new Date().toISOString()
-            })
+            });
         }
        
     } 
