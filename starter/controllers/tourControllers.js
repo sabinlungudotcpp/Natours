@@ -16,10 +16,11 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
         if(method === 'GET') {
 
             // 2. Advanced Filtering
-            const queryString = JSON.stringify(queryObject);
-            queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`) // Replace with the specified operations in regex
+            let queryString = JSON.stringify(queryObject);
+            queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`) // Replace with the specified operations in regex.
+            console.log(JSON.parse(queryString));
 
-            const tours = await Tour.find(queryObject);
+            const tours = await Tour.find(queryObject); // Find all the tours with the query object passed in
 
             return response.status(okCode).json({
                 data: tours,
