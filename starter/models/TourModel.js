@@ -27,8 +27,13 @@ const testTour = new Tour({
     price: 497
 });
 
-testTour.save().then(document => {
+testTour.save().then(document => { // Save the doc
     console.log(document);
+}).catch((error) => {
+
+    if(error) {
+        return console.log(error.toString());
+    }
 });
 
 module.exports = Tour;
