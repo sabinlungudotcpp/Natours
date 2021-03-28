@@ -17,12 +17,11 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
             // 1. Advanced Filtering
             let queryString = JSON.stringify(queryObject);
             queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`) // Replace with the specified operations in regex.
-
             let query = Tour.find(JSON.parse(queryString));
 
             // 2. SORTING FIELDS
             if(request.query.sort) { // If there is a sort
-                query = query.sort()
+                query = query.sort(request.query.sort);
             }
 
             const tours = await query;
