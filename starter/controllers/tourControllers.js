@@ -24,6 +24,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
     } 
     
     catch(error) {
+        
         if(error) {
 
             return response.status(notFound).json({
