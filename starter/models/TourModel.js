@@ -55,6 +55,10 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
     description: {
         type: String,
         trim: true
+    },
+
+    imageCover: {
+        type: String
     }
 
 });
