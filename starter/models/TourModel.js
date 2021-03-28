@@ -66,7 +66,9 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
     createdAt: {
         type: Date,
         default: Date.now().toString()
-    }
+    },
+
+    startDates: [Date] // An Array of start dates
 
 });
 
