@@ -13,6 +13,11 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
         required: [true, 'A tour must have a duration']
     },
 
+    maxGroupSize: {
+        type: Number,
+        required: [true, 'A tour must have a max group size']
+    }
+
     rating: {
         type: Number,
         required: [true, 'A Tour must have a rating associated']
