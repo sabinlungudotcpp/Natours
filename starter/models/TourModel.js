@@ -20,4 +20,13 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
+
+const testTour = new Tour({
+    name: 'The Forest Hiker',
+    rating: 4.7,
+    price: 497
+});
+
+testTour.save();
+
 module.exports = Tour;
