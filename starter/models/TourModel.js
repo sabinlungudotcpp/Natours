@@ -41,6 +41,13 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
     price: {
         type: Number,
         required: [true, 'A Tour must have a valid price']
+    },
+
+    priceDiscount: Number,
+
+    summary: {
+        type: String,
+        trim: true
     }
 });
 
