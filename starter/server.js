@@ -11,9 +11,12 @@ const port = process.env.PORT || 3500;
 // Connect to MongoDB database
 const DB_CONNECTION = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
-mongoose.connect(DB_CONNECTION, (err) => {
-    
-}); 
+mongoose.connect(DB_CONNECTION, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
+    useUnifiedTopology: true
+});
 
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
