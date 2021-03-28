@@ -90,7 +90,7 @@ exports.updateTourByID = async (request, response) => { // Middleware controller
         const body = request.body;
 
         if(request.method === 'PATCH') {
-            const updatedTour = await Tour.findByIdAndUpdate(id, body, {new: true});
+            const updatedTour = await Tour.findByIdAndUpdate(id, body, {new: true, runValidators: true});
 
             return response.status(okCode).json({
                 updatedTour,
