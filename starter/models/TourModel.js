@@ -5,10 +5,11 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
     name: {
         type: String,
         required: [true, 'A Tour must have a valid name'],
-        unique: true
+        unique: true,
+        trim: true
     },
 
-    duration: {
+    duration: { // The Tour Duration
         type: Number,
         required: [true, 'A tour must have a duration']
     },
@@ -18,7 +19,7 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
         required: [true, 'A tour must have a max group size']
     },
 
-    rating: {
+    rating: { // Tour Rating
         type: Number,
         required: [true, 'A Tour must have a rating associated']
     },
@@ -47,8 +48,15 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
 
     summary: {
         type: String,
+        trim: true,
+        required: [true, 'A Tour must have a summary']
+    },
+
+    description: {
+        type: String,
         trim: true
     }
+
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
