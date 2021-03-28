@@ -21,7 +21,9 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 
             // 2. SORTING FIELDS
             if(request.query.sort) { // If there is a sort
-                query = query.sort(request.query.sort);
+                const sortBy = request.query.sort.split(',').join(' ');
+                console.log(sortBy);
+                query = query.sort(sortBy);
             }
 
             const tours = await query;
