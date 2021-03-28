@@ -21,9 +21,11 @@ mongoose.connect(DB_CONNECTION, {
 });
 
 const tourSchema = new mongoose.Schema({ // Creates a new tour schema
+
     name: {
         type: String,
-        required: [true, 'A Tour must have a valid name']
+        required: [true, 'A Tour must have a valid name'],
+        unique: true
     },
 
     rating: {
@@ -35,6 +37,8 @@ const tourSchema = new mongoose.Schema({ // Creates a new tour schema
         type: Number,
         required: [true, 'A Tour must have a valid price']
     }
+
+    
 });
 
 const Tours = mongoose.model('Tours', tourSchema);
