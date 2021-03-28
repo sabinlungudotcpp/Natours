@@ -16,7 +16,10 @@ mongoose.connect(DB_CONNECTION, {
     useCreateIndex: true,
     useFindAndModify: true,
     useUnifiedTopology: true
-});
+}).then((conn) => {
+    console.log(conn.connections);
+    console.log('')
+})
 
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
