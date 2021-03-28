@@ -20,3 +20,27 @@ mongoose.connect(DB_CONNECTION, {
 
 // Read JSON file
 const tours = fs.readFileSync('tours-simple.json', 'utf-8');
+
+// Import data from the file to the database
+
+const importData = async () => {
+    try {
+        await Tour.create();
+    } 
+    
+    catch(error) {
+        if(error) {
+            return console.log(error);
+        }
+    }
+};
+
+const deleteData = async () => {
+    try {
+
+    } 
+    
+    catch(error) {
+
+    }
+}
