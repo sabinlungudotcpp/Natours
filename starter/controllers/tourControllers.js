@@ -1,6 +1,7 @@
 const Tour = require('../models/TourModel');
 const okCode = 200;
 const noContent = 204;
+const badRequest = 400;
 const notFound = 404;
 
 exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
@@ -129,7 +130,7 @@ exports.deleteTourByID = async (request, response) => {
     
     catch(error) {
         if(error) {
-            return response.status(400).json({message: 'Failed to delete tour', errorMsg: error.toString()})
+            return response.status(badRequest).json({message: 'Failed to delete tour', errorMsg: error.toString()})
         }
     }
 };
