@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Tour = require('../models/TourModel');
 const okCode = 200;
 const notFound = 404;
@@ -7,10 +6,15 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 
     try {
         const method = request.method;
+
         if(method === 'GET') {
+
             const tours = await Tour.find();
+
             return response.status(okCode).json({
-                data: tours
+                data: tours,
+                length: tours.length,
+                sentAt: new Date().toISOString()
             })
         }
        
