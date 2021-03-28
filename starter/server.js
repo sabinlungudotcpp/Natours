@@ -20,29 +20,6 @@ mongoose.connect(DB_CONNECTION, {
     console.log('Connected to Database Successfully')
 });
 
-const tourSchema = new mongoose.Schema({ // Creates a new tour schema
-
-    name: {
-        type: String,
-        required: [true, 'A Tour must have a valid name'],
-        unique: true
-    },
-
-    rating: {
-        type: Number,
-        required: [true, 'A Tour must have a rating associated']
-    },
-
-    price: {
-        type: Number,
-        required: [true, 'A Tour must have a valid price']
-    }
-
-    
-});
-
-const Tours = mongoose.model('Tours', tourSchema);
-
 // Listen for incoming requests on the specified port
 app.listen(port, (error) => {
 
