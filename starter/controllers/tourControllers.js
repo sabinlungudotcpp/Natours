@@ -10,7 +10,6 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
         const method = request.method;
         const queryObject = {...request.query}; // Take all of the fields out of the object
         const excludedFields = ['page', 'sort', 'limit', 'fields']; // Fields to exclude
-
         excludedFields.forEach(val => delete queryObject[val]); // For every value in the array, delete them
 
         if(method === 'GET') {
@@ -18,6 +17,11 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
             // 2. Advanced Filtering
             let queryString = JSON.stringify(queryObject);
             queryString = queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`) // Replace with the specified operations in regex.
+
+            // 3. SORTING FIELDS
+            if(request.query.sort) { // If there is a sort
+                
+            }
 
             const tours = await Tour.find(JSON.parse(queryString)); // Find all the tours with the query object passed in
 
@@ -27,7 +31,6 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
                 sentAt: new Date().toISOString()
             });
         }
-       
     } 
     
     catch(error) {
