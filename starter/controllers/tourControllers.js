@@ -7,17 +7,18 @@ const notFound = 404;
 exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 
     try {
+
         const method = request.method;
         const queryObject = {...request.query}; // Take all of the fields out of the object
-        const excludedFields = ['page', 'sort', 'limit', 'fields'];
+        const excludedFields = ['page', 'sort', 'limit', 'fields']; // Fields to exclude
         excludedFields.forEach(val => delete queryObject[val]);
 
         if(method === 'GET') {
-            const tours = await Tour.find(request.query);
+            const tours = await Tour.find(queryObject);
 
             return response.status(okCode).json({
                 data: tours,
-                length: tours.length,
+                numberOfTours: tours.length,
                 sentAt: new Date().toISOString()
             })
         }
