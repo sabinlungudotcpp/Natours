@@ -25,6 +25,10 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
                 query = query.sort(sortBy); // Sort by the specified criteria
             }
 
+            else {
+                query = query.sort('-createdAt'); // Otherwise sort by this value
+            }
+
             const tours = await query;
 
             return response.status(okCode).json({
