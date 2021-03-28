@@ -1,41 +1,19 @@
 const fs = require('fs');
 const Tour = require('../models/TourModel');
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 const okCode = 200;
 const notFound = 404;
 
-exports.checkID = (request, response, next, value) => { // Param middleware to check the ID of a tour
-    if(request.params.id * 1 > tours.length) {
-
-        return response.status(notFound).json({
-            status: 'Fail',
-            message: `The ID ${value} is invalid`
-        });
-    }
-
-    return next();
-}
-
-exports.checkBody = (request, response, next) => { // Param middleware to check the body of the request
-
-    if(!request.body.name || !request.body.price) {
-        return response.status(400).json({message: 'Tour title and price must be present in the body'});
-    }
-
-     return next();
-};
-
-exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
+exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 
     try {
         const method = request.method;
-
         if(method === 'GET') {
+            const tours = await Tour.find();
             return response.status(okCode).json({
-                numberOfTours: tours.length,
                 data: tours
-            }); 
+            })
         }
+       
     } 
     
     catch(error) {
@@ -49,33 +27,40 @@ exports.getAllTours = (request, response) => { // 1. GET ALL THE TOURS
     }
 }
 
-exports.getTourByID = (request, response) => { // 2. GET A TOUR BY ID
-    const id = request.params.id * 1;
-    const tour = tours.find(el => el.id === id);
+exports.getTourByID = async (request, response) => { // 2. GET A TOUR BY ID
+    try {
+        const method = request.method;
 
-    return response.status(okCode).json({
-        id,
-        data: {
-            tour
+        if(method === 'GET') {
+
+            const tours = await Tour.findById(request.params.id);
+
+            return response.status(okCode).json({
+                data: tours
+            })
         }
-    })
+       
+    } 
+    
+    catch(error) {
+
+        if(error) {
+            return response.status(notFound).json({
+                message: error.toString()
+            });
+
+        }
+    }
 }
 
 exports.createTour = (request, response) => { // Creates a new tour 
 
     try {
-        const newId = tours[tours.length - 1].id + 1; // Get the last tour
-        const newTour = Object.assign({id: newId}, request.body);
-        tours.push(newTour);
+        const method = request.method;
 
-        fs.writeFile(`${__dirname}/dev-data/data/tours-simple.json`, JSON.stringify(tours), (error) => {
-            return response.status(201).json({
-                status: 'Success',
-                data: {
-                    tour: newTour
-                }
-            })
-        });
+        if(method === 'POST') {
+
+        }
     } 
     
     catch(error) {
@@ -97,6 +82,7 @@ exports.updateTourByID = (request, response) => {
 };
 
 exports.deleteTourByID = (request, response) => {
+
     return response.status(204).json({
         data: undefined
     })
