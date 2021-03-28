@@ -17,8 +17,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 
             // 2. Advanced Filtering
             const queryString = JSON.stringify(queryObject);
-
-            queryString.replace(/\b(gte|gt|lte|lt)\b/)
+            queryString.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`) // Replace with the specified operations in regex
 
             const tours = await Tour.find(queryObject);
 
