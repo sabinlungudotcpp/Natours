@@ -10,6 +10,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
         const method = request.method;
         const queryObject = {...request.query}; // Take all of the fields out of the object
         const excludedFields = ['page', 'sort', 'limit', 'fields'];
+        excludedFields.forEach(val => delete queryObject[val]);
 
         if(method === 'GET') {
             const tours = await Tour.find(request.query);
