@@ -8,10 +8,10 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 
     try {
         const method = request.method;
+        const queryObject = {...request.query}; // Take all of the fields out of the object
+        const excludedFields = ['page', 'sort', 'limit', 'fields'];
 
         if(method === 'GET') {
-            console.log(request.query);
-
             const tours = await Tour.find(request.query);
 
             return response.status(okCode).json({
@@ -24,7 +24,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
     } 
     
     catch(error) {
-        
+
         if(error) {
 
             return response.status(notFound).json({
