@@ -12,7 +12,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
         if(method === 'GET') {
             console.log(request.query);
 
-            const tours = await Tour.find();
+            const tours = await Tour.find(request.query);
 
             return response.status(okCode).json({
                 data: tours,
@@ -24,7 +24,6 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
     } 
     
     catch(error) {
-
         if(error) {
 
             return response.status(notFound).json({
@@ -35,6 +34,7 @@ exports.getAllTours = async (request, response) => { // 1. GET ALL THE TOURS
 }
 
 exports.getTourByID = async (request, response) => { // 2. GET A TOUR BY ID
+
     try {
         const method = request.method;
 
@@ -44,7 +44,8 @@ exports.getTourByID = async (request, response) => { // 2. GET A TOUR BY ID
 
             return response.status(okCode).json({
                 data: tours
-            })
+            });
+
         }
     } 
     
@@ -78,7 +79,7 @@ exports.createTour = async (request, response) => { // Creates a new tour
     catch(error) {
 
         if(error) {
-            return response.status(400).json({
+            return response.status(badRequest).json({
                 status: 'Fail',
                 message: error.toString()
             });
@@ -109,7 +110,7 @@ exports.updateTourByID = async (request, response) => { // Middleware controller
     
     catch(error) {
         if(error) {
-            return response.status(400).json({message: 'Failed to update tour', errorMsg: error.toString()})
+            return response.status(badRequest).json({message: 'Failed to update tour', errorMsg: error.toString()})
         }
     }
 };
