@@ -83,12 +83,32 @@ exports.createTour = async (request, response) => { // Creates a new tour
     }
 };
 
-exports.updateTourByID = (request, response) => {
+exports.updateTourByID = async (request, response) => { // Middleware controller function to update a tour given a param id
 
-    return response.status(okCode).json({
-        message: '<Updated Tour Success>',
-        sentAt: new Date().toISOString()
-    });
+    try {
+        const id = request.params.id;
+        const body = request.body;
+
+        if(request.method === 'PATCH') {
+            const updatedTour = await Tour.findByIdAndUpdate(id, body, {new: true});
+
+            return response.status(okCode).json({
+                updatedTour,
+                updatedAt: new Date().toISOString()
+            })
+        }
+
+        return response.status(okCode).json({
+            message: '<Updated Tour Success>',
+            sentAt: new Date().toISOString()
+        });
+    } 
+    
+    catch(error) {
+        if(error) {
+            return response.status(400).json({message: 'Failed to update tour', errorMsg: error.toString()})
+        }
+    }
 };
 
 exports.deleteTourByID = (request, response) => {
